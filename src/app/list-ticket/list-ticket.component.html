@@ -1,0 +1,256 @@
+
+  <app-imagen  *ngIf="clienteSeleccionado" [ticket] ="clienteSeleccionado"></app-imagen>
+<mat-toolbar>
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+
+  </button>
+
+ <a
+    [routerLink]="'/'"
+    mat-icon-button
+    class="example-icon"
+    arial-label="Example icon-button with menu icon"
+  >
+    <mat-icon>print</mat-icon>
+  </a>
+
+    <span>Sistema de Impresoras Grupo ESIT</span>
+  <span class="example-spacer"></span>
+
+  <a *ngIf="!autenticado"
+    [routerLink]="'/login'"  
+    mat-icon-button
+    class = "example-icon favorite-icon"
+    aria-label = "Example icon-button with heart icon"
+  >
+    Iniciar sesión
+  </a>
+
+   <button mat-raised-button
+        matTooltip="Cerrar Sesión"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+   mat-icon-button *ngIf="autenticado" (click)="logout()">
+   
+ <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+ 
+
+ 
+  
+  </mat-toolbar>
+
+
+<mat-sidenav-container>
+<mat-sidenav #sidenav="matSidenav">
+
+  <img src="../../../assets/img/banner/Grupo_ESIT2.png" width = "100" height = "70">
+  <mat-divider> </mat-divider>
+  <button mat-button class="menu-button" type="button" [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>  
+    <span>Inicio</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listCuen']">
+   <mat-icon>face</mat-icon> 
+    <span> Clientes</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <mat-divider> </mat-divider>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listInvent']">
+    <mat-icon>money</mat-icon>  
+    <span>Inventario</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+  <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+    <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/ticket2']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+
+
+
+  <mat-divider> </mat-divider>
+
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/catalogos']">
+   <mat-icon>settings</mat-icon> 
+    <span> Catálogos</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/signup']">
+   <mat-icon>how_to_reg</mat-icon> 
+    <span> Registro</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRol']">
+   <mat-icon>account_box</mat-icon> 
+    <span>Roles</span>
+  </button>
+
+
+</mat-sidenav>
+
+<mat-sidenav-content>
+
+   
+<main class="col-md-9 col-lg-12 px-md-4">
+
+
+  <div class="col-xl-12 col-lg-8 item-wr">
+
+  <div class="card border-primary mb-3">
+    <div class="card-header">Registro de Tickets</div>
+    <div class="card-body text-primary">
+      <h3 class="card-title">Tickets</h3>
+      <div class="my-2 text-left button-wrapper">
+        <button *ngIf="authService.hasRole('ROLE_USER')" class="btn btn-rounded btn-primary btn-space" type="button" [routerLink]="['/ticket']">
+          Generar Ticket
+        </button>
+
+           <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-primary btn-space" type="button" [routerLink]="['/ticket']">
+          Problemas Recurrentes 
+        </button>
+
+      </div>
+  
+
+      <table *ngIf="authService.hasRole('ROLE_USER')" class="table table-bordered table-striped table-sm table-responsive">
+        <thead>
+
+        
+          <tr>
+          	<th>Estatus</th>
+            <th>Imagen</th>
+            <th>Hora Reporte</th>
+            <th>Fecha Reporte</th>
+            <th>Falla</th>
+            
+            <th>Hora Cierre</th>
+            <th>Fecha Cierre</th> 
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ticket of tickets" >
+            <td *ngIf="!ticket?.horaCierre"> <button 
+              type="button"    class="btn btn-danger btn-sm"><mat-icon>cancel</mat-icon></button></td>
+              <td *ngIf="ticket?.horaCierre"> <button 
+              type="button"    class="btn btn-success btn-sm"><mat-icon>check</mat-icon></button></td>
+              <td  matTooltip="Subir Imagen de la Falla"><mat-icon (click)="abrirModal(ticket)" style="cursor: pointer;">add_a_photo</mat-icon> </td>
+          <td>{{ ticket.horaI }}</td>
+          <td>{{ ticket.fechaInicio | date:'mediumDate' }}</td>
+          <td>{{ ticket.falla }}</td>
+          
+          <td>{{ ticket.horaCierre }}</td>
+          <td>{{ ticket.fechaCierre }}</td>
+             
+            
+
+          
+          </tr>
+        </tbody>
+      </table>
+
+       <table *ngIf="authService.hasRole('ROLE_ADMIN')" class="table table-bordered table-striped table-sm table-responsive">
+        <thead>
+
+        
+          <tr>
+            <th>Estatus</th>
+            
+            <th>Hora Reporte</th>
+            <th>Fecha Reporte</th>
+            <th>Falla</th>
+            
+            <th>Ubicación</th>
+            <th>Hora Cierre</th>
+            <th>Fecha Cierre</th>
+            <th>Técnico</th> 
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ticket of ticketsTodos" >
+            <td *ngIf="!ticket?.horaCierre"> <button 
+              type="button"    class="btn btn-danger btn-sm"><mat-icon>cancel</mat-icon></button></td>
+              <td *ngIf="ticket?.horaCierre"> <button 
+              type="button"    class="btn btn-success btn-sm"><mat-icon>check</mat-icon></button></td>
+              
+          <td>{{ ticket.horaI }}</td>
+          <td>{{ ticket.fechaInicio | date:'mediumDate' }}</td>
+          <td>{{ ticket.falla }}</td>
+          
+          <td>{{ ticket.ubicacion}}</td>
+          <td>{{ ticket.horaCierre }}</td>
+          <td>{{ ticket.fechaCierre }}</td>
+          <td>{{ ticket.usuario.nombre + ' ' + ticket.usuario.apellido}}</td>
+             
+            
+
+          
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+  </div>
+
+
+
+
+</main>
+
+
+      </mat-sidenav-content>
+    </mat-sidenav-container>

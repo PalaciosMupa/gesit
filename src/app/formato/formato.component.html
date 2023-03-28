@@ -1,0 +1,436 @@
+<app-pdf-formato *ngIf="c12 || c24 || c36 ||contrato12
+ || contrato24 || contrato36 || cambio12 || cambio24 || cambio36"  
+[pdf] ="pdfSeleccionado"></app-pdf-formato>
+	
+<mat-toolbar>
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+
+  </button>
+
+ <a
+    [routerLink]="'/'"
+    mat-icon-button
+    class="example-icon"
+    arial-label="Example icon-button with menu icon"
+  >
+    <mat-icon>print</mat-icon>
+  </a>
+
+    <span>Sistema de Impresoras Grupo ESIT</span>
+  <span class="example-spacer"></span>
+
+  <a *ngIf="!autenticado"
+    [routerLink]="'/login'"  
+    mat-icon-button
+    class = "example-icon favorite-icon"
+    aria-label = "Example icon-button with heart icon"
+  >
+    Iniciar sesión
+  </a>
+
+   <button mat-raised-button
+        matTooltip="Cerrar Sesión"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+   mat-icon-button *ngIf="autenticado" (click)="logout()">
+   
+ <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+ 
+
+ 
+  
+  </mat-toolbar>
+
+
+<mat-sidenav-container>
+<mat-sidenav #sidenav="matSidenav">
+
+   <img src="../../../assets/img/banner/Grupo_ESIT2.png" width = "100" height = "70">
+  <mat-divider> </mat-divider>
+  <button mat-button class="menu-button" type="button" [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>  
+    <span>Inicio</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listCuen']">
+   <mat-icon>face</mat-icon> 
+    <span> Clientes</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <mat-divider> </mat-divider>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listInvent']">
+    <mat-icon>money</mat-icon>  
+    <span>Inventario</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+  <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+    <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/ticket2']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+
+
+
+  <mat-divider> </mat-divider>
+
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/catalogos']">
+   <mat-icon>settings</mat-icon> 
+    <span> Catálogos</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/signup']">
+   <mat-icon>how_to_reg</mat-icon> 
+    <span> Registro</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRol']">
+   <mat-icon>account_box</mat-icon> 
+    <span>Roles</span>
+  </button>
+
+
+</mat-sidenav>
+
+<mat-sidenav-content>
+
+
+<main class="col-md-9 col-lg-12 px-md-4">
+      <div class="col-xl-12 col-lg-8 item-wr">
+    <div class="col-xl-12 col-lg-8">
+      <form areaForm="ngForm">
+        <div class="card shadow mb-4">
+
+
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h3 class="m-0 font-weight-bold text-primary"><span><H3> Formatos Internos</H3> </span></h3>
+
+            </div>
+
+            <div class="card-body">
+
+
+              <div class="row row-cols-1 row-cols-md-3">
+          
+
+          <div class="col mb-4">
+
+
+           <section class="example-section">
+              <mat-checkbox
+
+                  id="cotizacion"
+                  name="cotizacion"
+                  (change)="changeCot()"
+                  [(ngModel)]="cotizacion"
+                  [disabled]="contrato"
+                  [disabled]="cambios">
+                <span><H4>Cotizaciones</H4> </span>
+              </mat-checkbox>
+            </section>
+        
+          </div>
+
+
+          <div class="col mb-4">
+
+             <section class="example-section">
+              <mat-checkbox
+               
+                  id="contrato"
+                  name="contrato"
+                  (change)="changeCon()"
+                  [(ngModel)]="contrato"
+                  [disabled]="cotizacion"
+                  [disabled]="cambios">
+                <span><H4>Contratos</H4> </span>
+              </mat-checkbox>
+            </section>
+           
+
+          </div>
+
+             <div class="col mb-4">
+
+             <section class="example-section">
+              <mat-checkbox
+               
+                  id="cambios"
+                  name="cambios"
+                  (change)="changeCam()"
+                  [(ngModel)]="cambios"
+                  [disabled]="cotizacion"
+                  [disabled]="contrato">
+                <span><H4>Cambios de Equipos</H4> </span>
+              </mat-checkbox>
+            </section>
+           
+
+          </div>
+
+          
+
+        
+      </div> <!-- Termina el div para la seleccion del tipo de formato que vamos a ver-->
+
+
+        <div *ngIf="cotizacion" class="row row-cols-1 row-cols-md-3">
+          
+
+          <div class="col mb-4">
+
+
+           <section class="example-section">
+              <mat-checkbox
+                (click)="abrirModal(pdf)"
+                (change)="changeC12()"
+                  id="c12"
+                  name="c12"
+                  [(ngModel)]="c12"
+                  [disabled]="c36"
+                  [disabled]="c24">
+                <span><H3>12 Meses</H3> </span>
+              </mat-checkbox>
+            </section>
+        
+          </div>
+
+
+          <div class="col mb-4">
+
+             <section class="example-section">
+              <mat-checkbox
+                (click)="abrirModal(pdf)"
+                (change)="changeC12()"
+                  id="c24"
+                  name="c24"
+                  [(ngModel)]="c24"
+                  [disabled]="c12"
+                  [disabled]="c36">
+                <span><H3>24 Meses</H3> </span>
+              </mat-checkbox>
+            </section>
+           
+
+          </div>
+
+             <div class="col mb-4">
+
+             <section class="example-section">
+              <mat-checkbox
+               (click)="abrirModal(pdf)"
+                (change)="changeC12()"
+                  id="c36"
+                  name="c36"
+                  [(ngModel)]="c36"
+                  [disabled]="c12"
+                  [disabled]="c24">
+                <span><H3>36 Meses</H3> </span>
+              </mat-checkbox>
+            </section>
+           
+
+          </div>
+
+          
+
+        
+      </div> <!-- Termina el div para la las cotizaciones -->
+
+
+
+        <div *ngIf="contrato" class="row row-cols-1 row-cols-md-3">
+          
+
+          <div class="col mb-4">
+
+
+           <section class="example-section">
+              <mat-checkbox
+                (click)="abrirModal(pdf)"
+                (change)="changeContrato()"
+                  id="contrato12"
+                  name="contrato12"
+                  [(ngModel)]="contrato12"
+                  [disabled]="contrato36"
+                  [disabled]="contrato24">
+                <span><H3>12 Meses</H3> </span>
+              </mat-checkbox>
+            </section>
+        
+          </div>
+
+
+          <div class="col mb-4">
+
+             <section class="example-section">
+              <mat-checkbox
+                (click)="abrirModal(pdf)"
+                (change)="changeContrato()"
+                  id="contrato24"
+                  name="contrato24"
+                  [(ngModel)]="contrato24"
+                  [disabled]="contrato12"
+                  [disabled]="contrato36">
+                <span><H3>24 Meses</H3> </span>
+              </mat-checkbox>
+            </section>
+           
+
+          </div>
+
+             <div class="col mb-4">
+
+             <section class="example-section">
+              <mat-checkbox
+               (click)="abrirModal(pdf)"
+                (change)="changeContrato()"
+                  id="contrato36"
+                  name="contrato36"
+                  [(ngModel)]="contrato36"
+                  [disabled]="contrato12"
+                  [disabled]="contrato24">
+                <span><H3>36 Meses</H3> </span>
+              </mat-checkbox>
+            </section>
+           
+
+          </div>
+
+          
+
+        
+      </div> <!-- Termina el div para la las cotizaciones -->
+
+
+        <div *ngIf="cambios" class="row row-cols-1 row-cols-md-3">
+          
+
+          <div class="col mb-4">
+
+
+           <section class="example-section">
+              <mat-checkbox
+                (click)="abrirModal(pdf)"
+                (change)="changeCambio()"
+                  id="cambio12"
+                  name="cambio12"
+                  [(ngModel)]="cambio12"
+                  [disabled]="cambio36"
+                  [disabled]="cambio24">
+                <span><H3>Mantenimiento</H3> </span>
+              </mat-checkbox>
+            </section>
+        
+          </div>
+
+
+          <div class="col mb-4">
+
+             <section class="example-section">
+              <mat-checkbox
+                (click)="abrirModal(pdf)"
+                (change)="changeCambio()"
+                  id="cambio24"
+                  name="cambio24"
+                  [(ngModel)]="cambio24"
+                  [disabled]="cambio12"
+                  [disabled]="cambio36">
+                <span><H3>Solicitud</H3> </span>
+              </mat-checkbox>
+            </section>
+           
+
+          </div>
+
+             <div class="col mb-4">
+
+             <section class="example-section">
+              <mat-checkbox
+               (click)="abrirModal(pdf)"
+                (change)="changeCambio()"
+                  id="cambio36"
+                  name="cambio36"
+                  [(ngModel)]="cambio36"
+                  [disabled]="cambio12"
+                  [disabled]="cambio24">
+                <span><H3>Daño</H3> </span>
+              </mat-checkbox>
+            </section>
+           
+
+          </div>
+
+          
+
+        
+      </div> <!-- Termina el div para la los Cambios -->
+
+
+
+          
+
+            </div>
+        </div>
+        </form>
+    </div>
+
+    </div>
+
+  </main>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+ 

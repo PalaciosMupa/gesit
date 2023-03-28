@@ -1,0 +1,261 @@
+
+	
+<mat-toolbar>
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+
+  </button>
+
+ <a
+    [routerLink]="'/'"
+    mat-icon-button
+    class="example-icon"
+    arial-label="Example icon-button with menu icon"
+  >
+    <mat-icon>print</mat-icon>
+  </a>
+
+    <span>Sistema de Impresoras Grupo ESIT</span>
+  <span class="example-spacer"></span>
+
+  <a *ngIf="!autenticado"
+    [routerLink]="'/login'"  
+    mat-icon-button
+    class = "example-icon favorite-icon"
+    aria-label = "Example icon-button with heart icon"
+  >
+    Iniciar sesión
+  </a>
+
+   <button mat-raised-button
+        matTooltip="Cerrar Sesión"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+   mat-icon-button *ngIf="autenticado" (click)="logout()">
+   
+ <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+ 
+
+ 
+  
+  </mat-toolbar>
+
+
+<mat-sidenav-container>
+<mat-sidenav #sidenav="matSidenav">
+
+  <img src="../../../assets/img/banner/Grupo_ESIT2.png" width = "100" height = "70">
+  <mat-divider> </mat-divider>
+  <button mat-button class="menu-button" type="button" [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>  
+    <span>Inicio</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listCuen']">
+   <mat-icon>face</mat-icon> 
+    <span> Clientes</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <mat-divider> </mat-divider>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listInvent']">
+    <mat-icon>money</mat-icon>  
+    <span>Inventario</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+  <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+    <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/ticket2']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+
+
+
+  <mat-divider> </mat-divider>
+
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/catalogos']">
+   <mat-icon>settings</mat-icon> 
+    <span> Catálogos</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/signup']">
+   <mat-icon>how_to_reg</mat-icon> 
+    <span> Registro</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRol']">
+   <mat-icon>account_box</mat-icon> 
+    <span>Roles</span>
+  </button>
+
+
+</mat-sidenav>
+
+<mat-sidenav-content>
+
+   
+<main class="col-md-9 col-lg-12 px-md-4">
+
+
+  <div class="col-xl-12 col-lg-8 item-wr">
+
+  <div class="card border-primary mb-3">
+    <div class="card-header">Asignacion de Roles</div>
+    <div class="card-body text-primary">
+      <h3 class="card-title">Roles</h3>
+      <div class="my-2 text-left button-wrapper">
+        <button class="btn btn-rounded btn-primary btn-space" type="button" [routerLink]="['/roles']">
+          Asignar un Rol
+        </button>
+
+      </div>
+  
+
+      <table class="table table-bordered table-striped table-sm table-responsive">
+        <thead>
+
+           <tr>  
+
+           	<td colspan= "1" ><b>
+
+           <input style="width:110px;"
+            class="form-control" 
+            type="text" 
+            name="Usuario"
+            [(ngModel)]="Usuario"
+            (ngModelChange)="SearchUsuario()" 
+             >
+
+          </b> </td>
+            
+            <td colspan= "1" ><b>
+
+           <input style="width:110px;"
+            class="form-control" 
+            type="text" 
+            name="Nombre"
+            [(ngModel)]="Nombre"
+            (ngModelChange)="SearchNombre()" 
+             >
+
+          </b> </td> 
+
+         
+
+             <td colspan= "1" ><b>
+
+           <input style="width:110px;"
+            class="form-control" 
+            type="text" 
+            name="Apellido"
+            [(ngModel)]="Apellido"
+            (ngModelChange)="SearchApellido()" 
+             >
+
+          </b> </td>
+
+        
+
+          </tr> 
+          <tr>
+          	<th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>Estatus</th>
+          
+          
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let UserRol of UsuarioRoles"  >
+
+         <td>{{ UserRol.username }}</td>
+          <td>{{ UserRol.nombre }}</td>
+            <td>{{ UserRol.apellido }}</td>
+            <td>{{ UserRol.telefono }}</td>
+            <td>{{ UserRol.email }}</td>
+            
+
+            <td  *ngIf="UserRol.enable == true">
+              <button 
+              matTooltip="Click para deshabiliar al usuario"
+            aria-label="Button that displays a tooltip when focused or hovered over" 
+              type="button" name="eliminar"  (click)='habilitar(UserRol)' class="btn btn-success btn-sm"><mat-icon>check</mat-icon></button>
+              </td>
+            
+            <td 
+             matTooltip="Click para habiliar al usuario"
+            aria-label="Button that displays a tooltip when focused or hovered over" 
+            *ngIf="UserRol.enable == false">
+              <button type="button" name="eliminar"  (click)='des(UserRol)' class="btn btn-danger btn-sm"><mat-icon>cancel</mat-icon></button>
+              </td>
+           
+             
+         
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+  </div>
+
+
+
+
+</main>
+
+
+      </mat-sidenav-content>
+    </mat-sidenav-container>

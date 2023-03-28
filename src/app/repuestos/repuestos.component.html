@@ -1,0 +1,775 @@
+
+  
+<mat-toolbar>
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+
+  </button>
+
+ <a
+    [routerLink]="'/'"
+    mat-icon-button
+    class="example-icon"
+    arial-label="Example icon-button with menu icon"
+  >
+    <mat-icon>print</mat-icon>
+  </a>
+
+    <span>Sistema de Impresoras Grupo ESIT</span>
+  <span class="example-spacer"></span>
+
+  <a *ngIf="!autenticado"
+    [routerLink]="'/login'"  
+    mat-icon-button
+    class = "example-icon favorite-icon"
+    aria-label = "Example icon-button with heart icon"
+  >
+    Iniciar sesión
+  </a>
+
+   <button mat-raised-button
+        matTooltip="Cerrar Sesión"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+   mat-icon-button *ngIf="autenticado" (click)="logout()">
+   
+ <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+ 
+
+ 
+  
+  </mat-toolbar>
+
+
+<mat-sidenav-container>
+<mat-sidenav #sidenav="matSidenav">
+
+   <img src="../../../assets/img/banner/Grupo_ESIT2.png" width = "100" height = "70">
+  <mat-divider> </mat-divider>
+  <button mat-button class="menu-button" type="button" [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>  
+    <span>Inicio</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listCuen']">
+   <mat-icon>face</mat-icon> 
+    <span> Clientes</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <mat-divider> </mat-divider>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listInvent']">
+    <mat-icon>money</mat-icon>  
+    <span>Inventario</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+  <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+    <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/ticket2']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+
+
+
+  <mat-divider> </mat-divider>
+
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/catalogos']">
+   <mat-icon>settings</mat-icon> 
+    <span> Catálogos</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/signup']">
+   <mat-icon>how_to_reg</mat-icon> 
+    <span> Registro</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRol']">
+   <mat-icon>account_box</mat-icon> 
+    <span>Roles</span>
+  </button>
+
+</mat-sidenav>
+
+<mat-sidenav-content>
+
+
+<main class="col-md-9 col-lg-12 px-md-4">
+     <div class="col-xl-12 col-lg-8 item-wr">
+    <div class="col-xl-12 col-lg-8">
+      <form areaForm="ngForm">
+        <div class="card shadow mb-4">
+
+
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h2 class="m-0 font-weight-bold text-primary"><span><H2> Registro de Cambio de Consumibles</H2> </span></h2>
+
+            </div>
+
+            <div class="card-body">
+
+
+      <div class="row row-cols-1 row-cols-md-3">
+          <div class="col mb-4">
+        <!-- Columna vacia para centrar el input de la serie-->
+        
+          </div>
+
+
+          <div class="col mb-4">
+
+
+              <form class="example-form">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Número de Serie del Equipo</mat-label>
+            <input type="text"
+                   placeholder="No. Serie"
+                   aria-label="Number"
+                   matInput
+                   [(ngModel)]="repuestos.serie_equipo" 
+                  (ngModelChange)="onChangeObj($event)"
+                   [formControl]="myControl"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+         
+     </form>
+             
+
+          </div>
+
+          <div class="col mb-3">
+   
+         <!-- Columna vacia para centrar el input de la serie-->
+          </div>
+
+        
+      </div> <!-- Termina el div que forma las 3 columnas del autocompletar-->
+
+
+
+       <div class="row row-cols-1 row-cols-md-3" *ngFor="let item of inventa">
+          <div class="col mb-4">
+
+         <div class="form-group" >
+                        
+          <label>Equipo<sup class="text-danger">*</sup></label>
+
+          <div class="form-group__content">
+              
+              <input type="text"
+              class="form-control"
+              name="EquipoTipo"
+              [(ngModel)]="item.equipos.tipo"
+              readonly
+              required>
+
+          </div>
+
+          </div>
+
+
+          </div>
+
+
+          <div class="col mb-4">
+
+          <div class="form-group" >
+                        
+          <label>Modelo<sup class="text-danger">*</sup></label>
+
+          <div class="form-group__content">
+              
+              <input type="text"
+              class="form-control"
+              name="ImpresoraModelo"
+             [(ngModel)]="item.impresora.modelo"
+              readonly
+              required>
+
+             
+          </div>
+
+          </div>
+           
+             
+
+          </div>
+
+          <div class="col mb-3">
+   
+
+         <div class="form-group" >
+                        
+          <label>Destino<sup class="text-danger">*</sup></label>
+
+          <div class="form-group__content">
+              
+              <input type="text"
+              class="form-control"
+              name="Destino"
+             [(ngModel)]="item.destino"
+              readonly
+              required>
+
+             
+          </div>
+
+          </div>
+
+          </div>
+
+        
+      </div> <!-- Termina el div que forma las 3 columnas del modelo,equipo y Área-->
+
+       <div class="row row-cols-1 row-cols-md-3" >
+          <div class="col mb-4">
+
+         <section class="example-section">
+              <mat-checkbox
+               
+                id="consumible"
+                name="consumible"
+               [(ngModel)]="consumible"
+               (change)="changeConsumible()"
+               [disabled]="refaccion"
+               [disabled]="area"
+               >
+                <span><H4>Cambio de Consumible</H4> </span>
+              </mat-checkbox>
+            </section>
+
+
+          </div>
+
+
+          <div class="col mb-4">
+
+         <section class="example-section">
+              <mat-checkbox
+               
+                id="refaccion"
+                name="refaccion"
+               [(ngModel)]="refaccion"
+               (change)="changeConsumible()"
+               [disabled]="consumible"
+               [disabled]="area"
+               >
+                <span><H4>Mantenimiento</H4> </span>
+              </mat-checkbox>
+            </section>
+             
+
+          </div>
+
+           <div class="col mb-4">
+
+         <section class="example-section">
+              <mat-checkbox
+               
+                id="area"
+                name="area"
+               [(ngModel)]="area"
+               (change)="changeArea()"
+               [disabled]="refaccion"
+               [disabled]="consumible"
+               >
+                <span><H4>Reubicar equipo</H4> </span>
+              </mat-checkbox>
+            </section>
+
+
+          </div>
+
+         
+      </div> <!-- Termina el div de las dos opciones cambio de consumible o refaccion-->
+
+
+        <div 
+        *ngIf="consumible"
+        class="row row-cols-1 row-cols-md-3" >
+          <div class="col mb-4">
+
+         <section class="example-section">
+              <mat-checkbox
+               
+                id="toner"
+                name="toner"
+               [(ngModel)]="toner"
+               (change)="changeToner()"
+               [disabled]="fusor"
+               [disabled]="imagen"
+               >
+                <span><H3>Toner</H3> </span>
+              </mat-checkbox>
+            </section>
+
+
+          </div>
+
+
+          <div class="col mb-4">
+
+         <section class="example-section">
+              <mat-checkbox
+               
+                id="fusor"
+                name="fusor"
+               [(ngModel)]="fusor"
+               (change)="changeFusor()"
+               [disabled]="toner"
+               [disabled]="imagen"
+               >
+                <span><H3>Fusor</H3> </span>
+              </mat-checkbox>
+            </section>
+             
+
+          </div>
+
+
+           <div class="col mb-4">
+
+         <section class="example-section">
+              <mat-checkbox
+               
+                id="imagen"
+                name="imagen"
+               [(ngModel)]="imagen"
+               (change)="changeImagen()"
+               [disabled]="toner"
+               [disabled]="fusor"
+               >
+                <span><H3>Unidad de Imagen</H3> </span>
+              </mat-checkbox>
+            </section>
+
+
+          </div>
+
+         
+      </div> <!-- Termina el div de las 3 opciones de consumibles, toner, fusor e Imagen-->
+
+
+      
+
+
+         <div  *ngIf="area" class="row row-cols-1 row-cols-md-2">
+      
+
+            <div  class="col mb-4">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Seleccionar Área</mat-label>
+          <mat-select [(ngModel)]="repuestos.areas" name="areas"
+          (ngModelChange)="onChangeObj2($event)">
+          <mat-option *ngFor="let are of areas" [value]="are">
+          {{are.area}}
+          </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+            
+          </div>
+
+
+
+          <div class="col mb-4">
+        
+
+         
+                 <mat-form-field appearance="fill">
+          <mat-label>Seleccionar Subarea</mat-label>
+          <mat-select [(ngModel)]="repuestos.subarea" name="subarea">
+          <mat-option *ngFor="let subar of subareas" [value]="subar">
+          {{subar.subarea}}
+          </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+            
+          </div>
+
+              
+        </div>  <!-- Termina el div de las 2 opciones para la seleccion del area y subarea-->
+
+      <!--Despues de las 3 opciones de consumible, mostrar una tabla 
+          con informacion de los consumibles que hay en existencia 
+          en la bodega-->
+
+
+           <div 
+        
+        class="row row-cols-1 row-cols-md-3" >
+          <div 
+          *ngIf="Contoner"
+          class="col mb-4">
+
+         <label>Cantidad de Consumibles Disponibles<sup class="text-danger">*</sup></label>
+
+          <div class="form-group__content">
+              
+              <input type="text"
+              class="form-control"
+              name="Cantidad"
+              [(ngModel)]="Cantidad"
+              readonly
+              required>
+
+          </div>
+
+
+          </div>
+
+
+          <div 
+          *ngIf="Confusor"
+          class="col mb-4">
+
+         <label>Cantidad de Consumibles Disponibles<sup class="text-danger">*</sup></label>
+
+          <div class="form-group__content">
+              
+              <input type="text"
+              class="form-control"
+              name="Cantidad"
+              [(ngModel)]="Cantidad"
+              readonly
+              required>
+
+          </div> 
+       
+             
+
+          </div>
+
+
+           <div 
+            *ngIf="Conimagen"
+           class="col mb-4">
+
+           <label>Cantidad de Consumibles Disponibles<sup class="text-danger">*</sup></label>
+
+          <div class="form-group__content">
+              
+              <input type="text"
+              class="form-control"
+              name="Cantidad"
+              [(ngModel)]="Cantidad"
+              readonly
+              required>
+
+          </div>
+
+
+          </div>
+
+         
+      </div> <!-- Termina el div de las 3 opciones de consumibles, toner, fusor e Imagen-->
+
+
+         
+
+          <table 
+           *ngIf="Contoner"
+          class="table table-bordered table-striped table-sm table-responsive">
+        <thead>
+          <tr>
+            <th>Modelo</th>
+            <th>Serie</th>
+            
+
+            <th>Lugar en bodega</th>
+            
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let inve of in">
+
+          <td>{{ inve.impresora.modelo }}</td>
+            <td>{{ inve.serie }}</td>
+            
+            <td>{{ inve.lugarBodega }}</td>
+            
+         
+          </tr>
+        </tbody>
+      </table>
+
+
+   <!--Inicia la tabla para mostrar la informacion del consumible fusor-->
+
+
+        <table 
+           *ngIf="Confusor"
+          class="table table-bordered table-striped table-sm table-responsive">
+        <thead>
+          <tr>
+            <th>Modelo</th>
+            <th>Serie</th>
+            
+
+            <th>Lugar en bodega</th>
+            
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let inve of in">
+
+          <td>{{ inve.impresora.modelo }}</td>
+            <td>{{ inve.serie }}</td>
+            
+            <td>{{ inve.lugarBodega }}</td>
+            
+             
+           
+           <td>
+              
+    
+            </td>  
+          </tr>
+        </tbody>
+      </table>
+
+
+      <!--Inicia la tabla para mostrar la informacion del consumible Unidad de imagen-->
+
+
+        <table 
+           *ngIf="Conimagen"
+          class="table table-bordered table-striped table-sm table-responsive">
+        <thead>
+          <tr>
+            <th>Modelo</th>
+            <th>Serie</th>
+            
+
+            <th>Lugar en bodega</th>
+            
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let inve of in">
+
+          <td>{{ inve.impresora.modelo }}</td>
+            <td>{{ inve.serie }}</td>
+            
+            <td>{{ inve.lugarBodega }}</td>
+            
+             
+           
+           <td>
+              
+    
+
+            </td>  
+          </tr>
+        </tbody>
+      </table>
+
+
+      <div 
+       *ngIf="Sintoner"
+      class="row row-cols-1 row-cols-md-3" >
+          <div class="col mb-4">
+
+        
+
+
+          </div>
+
+
+          <div class="col mb-4">
+
+          <div class="form-group" >
+                        
+          <label>Modelo de consumible compatible con impresora<sup class="text-danger">*</sup></label>
+
+          <div class="form-group__content">
+              
+              <input type="text"
+              class="form-control"
+              name="Compatible"
+             [(ngModel)]="Compatible"
+              readonly
+              required>
+
+              <div class="valid-feedback">Valid.</div>
+              <div class="invalid-feedback">Por favor rellene este campo</div>
+
+          </div>
+
+          </div>
+           
+             
+
+          </div>
+
+          <div class="col mb-3">
+   
+
+        
+
+          </div>
+
+        
+      </div> <!-- Termina el div para mostrar el modelo de consumible 
+                   compatible con alguna impresora-->
+
+
+       <div 
+       *ngIf="refaccion"
+      class="row row-cols-1 row-cols-md-1" >
+         
+          <div class="col mb-4">
+            
+          <label>Cambio de refacción<sup class="text-danger">*</sup></label>
+
+          <div class="form-group">
+              
+              <input type="text"
+              class="form-control formStore"
+              placeholder="Asentar el cambio de refacción efectuado para este equipo"
+              (change)="validate(refacc)"
+              pattern="[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ ]{1,}"
+              [(ngModel)]="repuestos.serie_refaccion"
+              name="refacc"
+              #refacc
+              required>
+
+              <div class="valid-feedback">Valido.</div>
+              <div class="invalid-feedback">Campo Invalido</div>
+
+          
+
+          </div>
+           
+             
+
+          </div>
+
+           <div class="col mb-4">
+            
+          
+             
+
+          </div>
+
+
+
+        
+      </div> <!-- Termina el div para el registro del cambio de
+                   alguna refacción para la impresora-->
+
+
+                   <div 
+       *ngIf="refaccion"
+      class="row row-cols-1 row-cols-md-1" >
+         
+          <div class="col mb-4">
+          
+             
+
+          </div>
+
+           <div class="col mb-4">
+            
+            <section class="example-section">
+              <mat-checkbox
+               
+                id="mantto"
+                name="mantto"
+               [(ngModel)]="mantto"
+               (change)="changeMantto()"
+           
+               >
+                <span><H2>Mantenimiento Preventivo</H2> </span>
+              </mat-checkbox>
+            </section>
+           
+             
+
+          </div>
+
+
+
+        
+      </div> <!-- Termina el div para el registro del cambio de
+                   alguna refacción para la impresora-->
+
+        <button type="submit"  (click)='createRepuestos()' class="btn btn-info btn-fill pull-right btn-space" >Registrar</button>
+
+            </div>  <!-- Termina el card body en este div -->
+        </div>
+        </form>
+    </div>
+
+
+
+    </div>
+
+
+
+
+
+  </main>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

@@ -1,0 +1,483 @@
+
+<app-recurrente  *ngIf="ImpresoraSeleccionada" [impresora]="ImpresoraSeleccionada"></app-recurrente>
+
+<app-fallas   *ngIf="ImpresoraSeleccionad" [impresora]="ImpresoraSeleccionad"
+[atasco] ="atasco"
+[rayas] ="rayas"
+[impre] ="impre"
+[config] ="config"
+[escanea] ="escanea"
+[mancha] ="mancha"
+
+></app-fallas>
+
+
+<mat-toolbar>
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+
+  </button>
+
+ <a
+    [routerLink]="'/'"
+    mat-icon-button
+    class="example-icon"
+    arial-label="Example icon-button with menu icon"
+  >
+    <mat-icon>print</mat-icon>
+  </a>
+
+    <span>Sistema de Impresoras Grupo ESIT</span>
+  <span class="example-spacer"></span>
+
+  <a *ngIf="!autenticado"
+    [routerLink]="'/login'"  
+    mat-icon-button
+    class = "example-icon favorite-icon"
+    aria-label = "Example icon-button with heart icon"
+  >
+    Iniciar sesión
+  </a>
+
+   <button mat-raised-button
+        matTooltip="Cerrar Sesión"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+   mat-icon-button *ngIf="autenticado" (click)="logout()">
+   
+ <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+ 
+
+ 
+  
+  </mat-toolbar>
+
+
+<mat-sidenav-container>
+<mat-sidenav #sidenav="matSidenav">
+
+   <img src="../../../assets/img/banner/Grupo_ESIT2.png" width = "100" height = "70">
+  <mat-divider> </mat-divider>
+  <button mat-button class="menu-button" type="button" [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>  
+    <span>Inicio</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listCuen']">
+   <mat-icon>face</mat-icon> 
+    <span> Clientes</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <mat-divider> </mat-divider>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listInvent']">
+    <mat-icon>money</mat-icon>  
+    <span>Inventario</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+  <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+    <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/ticket2']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+
+
+
+  <mat-divider> </mat-divider>
+
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/catalogos']">
+   <mat-icon>settings</mat-icon> 
+    <span> Catálogos</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/signup']">
+   <mat-icon>how_to_reg</mat-icon> 
+    <span> Registro</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRol']">
+   <mat-icon>account_box</mat-icon> 
+    <span>Roles</span>
+  </button>
+
+
+</mat-sidenav>
+
+<mat-sidenav-content>
+
+
+<main class="col-md-9 col-lg-12 px-md-4">
+<div class="col-xl-12 col-lg-8 item-wr">
+    <div class="col-xl-12 col-lg-8">
+      <form areaForm="ngForm">
+        <div class="card shadow mb-4">
+           <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h3 class="m-0 font-weight-bold text-primary"><span><H3> Generación de tickets</H3> </span></h3>
+
+            </div>
+
+     <div class="card-body">
+
+      <div class="row row-cols-1 row-cols-md-2">
+
+      <div class="col mb-4">
+          
+        
+          <section class="example-section">
+              <mat-checkbox
+              *ngIf="authService.hasRole('ROLE_USER')"
+              id="ticket"
+              name="ticket"
+             [(ngModel)]="ticket"
+             (change)="changeTicket()"
+             [disabled]="recurrente">
+                <span><H2>Levantar Ticket</H2> </span>
+              </mat-checkbox>
+            </section>
+            
+          </div>
+
+
+           <div class="col mb-4">
+          <section class="example-section">
+              <mat-checkbox
+              id="recurrente"
+              name="ticrecurrenteket"
+             [(ngModel)]="recurrente"
+             
+             [disabled]="ticket">
+                <span><H2>Problemas Recurrentes</H2> </span>
+              </mat-checkbox>
+            </section>
+            
+          </div>
+
+
+      </div>  <!--  Termina el primer bloque de los dos select  -->
+
+
+      <div *ngIf="ticket" class="row row-cols-1 row-cols-md-1">
+
+      <div class="col mb-4">
+          
+           <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Describir la falla del equipo</mat-label>
+            <textarea 
+            matInput 
+            [(ngModel)]="tickets.falla"
+            [ngModelOptions]="{standalone: true}" 
+            placeholder="Ejm. El equipo no imprime...">
+              
+            </textarea>
+          </mat-form-field>
+        </form>
+            
+          </div>
+
+
+           
+
+
+      </div>  <!--  Termina el Segundo bloque  Serie y descripcion de falla  -->
+
+        <div *ngIf="ticket" class="row row-cols-1 row-cols-md-2">
+
+     
+
+
+           <div class="col mb-4">
+      
+           
+
+          </div>
+
+
+      </div>  <!--  Termina el Tercer bloque    -->
+
+<div *ngIf="ticket" class="row row-cols-1 row-cols-md-3">
+
+      <div class="col mb-4">
+          
+         <div class="form-group" >
+                        
+          <label>Nombre:<sup class="text-danger">*</sup></label>
+
+          <div class="form-group__content">
+              
+              <input type="text"
+              class="form-control"
+              name="Nombre"
+              [(ngModel)]="nom"
+              readonly
+              required>
+
+          </div>
+
+          </div>
+            
+          </div>
+
+
+           <div class="col mb-4">
+      
+          <div class="form-group" >
+                        
+          <label>Apellido:<sup class="text-danger">*</sup></label>
+
+          <div class="form-group__content">
+              
+              <input type="text"
+              class="form-control"
+              name="Apellido"
+              [(ngModel)]="apellido"
+              readonly
+              required>
+
+          </div>
+
+          </div>
+           
+
+          </div>
+
+          <div class="col mb-4">
+      
+             <div class="form-group" >
+                        
+          <label>Teléfono:<sup class="text-danger">*</sup></label>
+
+          <div class="form-group__content">
+              
+              <input type="text"
+              class="form-control"
+              name="Telefono"
+              [(ngModel)]="telef"
+              readonly
+              required>
+
+          </div>
+
+          </div>
+
+          </div>
+
+
+      </div>  <!--  Termina el Cuarto  bloque  con datos del usuario  -->
+
+<div *ngIf="ticket" class="row row-cols-1 row-cols-md-2">
+
+      <div class="col mb-4">
+          
+               <section class="example-section">
+              <mat-checkbox
+              id="agregar"
+              name="agregar"
+             [(ngModel)]="agregar"
+             
+             >
+                <span><H3>Agregar Teléfono</H3> </span>
+              </mat-checkbox>
+            </section>
+            
+          </div>
+
+
+           <div class="col mb-4">
+      
+                   
+
+          </div>
+
+        
+
+
+      </div> <!--  Termina el quinto Bloque  -->
+
+      <div *ngIf="agregar" class="row row-cols-1 row-cols-md-2">
+
+      <div class="col mb-4">
+          
+              <div class="form-group" >
+                        
+          <label>Teléfono:<sup class="text-danger">*</sup></label>
+
+          <div class="form-group__content">
+              
+              <input type="text"
+              class="form-control"
+              name="Telefono2"
+              [(ngModel)]="tickets.telefono2"
+              
+              required>
+
+          </div>
+
+          </div>
+            
+          </div>
+
+
+           <div class="col mb-4">
+      
+                   
+
+          </div>
+
+        
+
+
+      </div> <!--  Termina el sexto Bloque  -->
+
+      <div *ngIf="ticket" class="row row-cols-1 row-cols-md-3">
+
+      <div class="col mb-4">
+          
+            
+            
+          </div>
+
+           <div class="col mb-4">
+          
+            
+            
+          </div>
+
+
+           <div class="col mb-4">
+      
+                   
+      <button type="submit"  (click)='createTicket()'  class="btn btn-info btn-fill pull-right btn-space" >Levantar Ticket</button>
+
+          </div>
+
+        
+
+
+      </div> <!--  Termina el  Bloque  Siete -->
+
+
+
+     <!--  Inicia la tabla para ver los problemas recurrentes -->
+      <table *ngIf="recurrente" class="table table-bordered table-striped table-sm table-responsive">
+        <thead>
+          <tr>
+             <td *ngIf="authService.hasRole('ROLE_ADMIN')"
+             colspan= "1" ><b>
+
+          
+
+          </b> </td>  
+           <td colspan= "1" ><b>
+
+           <input style="width:150px;"
+            class="form-control" 
+            type="text" 
+            name="Modelo"
+            [(ngModel)]="Modelo"
+            (ngModelChange)="Search()" 
+            
+             >
+
+          </b> </td>    
+
+          </tr>
+          <tr>
+            <th  *ngIf="authService.hasRole('ROLE_ADMIN')">
+            Cargar Videos</th>
+            <th>Modelo de Impresora</th>
+            <th>Atasco</th>
+            <th>Mancha</th>
+            <th>Rayas</th>
+            <th>No Escanea</th>
+            <th>No Imprime</th>
+            <th>Desconfigurado</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ma of impres" >
+
+             <td 
+              *ngIf="authService.hasRole('ROLE_ADMIN')"
+             matTooltip="Subir Videos"><mat-icon  (click)="abrirModal(ma)"  
+              style="cursor: pointer;">cloud_upload</mat-icon> </td>
+          <td>{{ma.modelo}}</td>
+            <td matTooltip="Atasco de hojas"><mat-icon (click)="abrirAtasco(ma, atasco)" style="cursor: pointer;">description</mat-icon></td>
+            <td matTooltip="Mancha las hojas"><mat-icon (click)="abrirMancha(ma, mancha)"  style="cursor: pointer;">theaters</mat-icon></td>
+             <td matTooltip="Rayas las hojas"><mat-icon (click)="abrirRayas(ma, rayas)" style="cursor: pointer;">description</mat-icon></td>
+            <td matTooltip="No escanea"><mat-icon (click)="abrirEscanea(ma, escanea)" style="cursor: pointer;">theaters</mat-icon></td>
+             <td matTooltip="No Imprime"><mat-icon (click)="abrirImpreso(ma, impre)" style="cursor: pointer;">description</mat-icon></td>
+            <td matTooltip="Equipo desconfigurado"><mat-icon (click)="abrirConfig(ma, config)"  style="cursor: pointer;">theaters</mat-icon></td>
+            
+            
+             
+            
+
+          </tr>
+        </tbody>
+      </table>
+
+
+   </div>
+
+  </div>
+</form>
+</div>
+</div>
+</main>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+ 

@@ -1,0 +1,69 @@
+<div class="abrir-modal animacion fadeIn" *ngIf="modalService.modal">
+<div class="modal" tabindex="-1" role="dialog" style="display:block;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ titulo }}</h5>
+        <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-sm">
+           
+
+               <div class="form-group">
+               <input type="file" 
+                class="form-control formStore"
+                (change)="seleccionarFoto($event)"
+                id="inputGroupFile04"
+                placeholder="Seleccionar instructivo" 
+          
+                name="toner" 
+                #toner
+                required>
+                <div class="valid-feedback">Valido</div>
+                <div class="invalid-feedback">Campo Invalido</div>
+                </div>
+
+                
+                 <div class="form-groupd">
+                  <button (click)="subirFoto()"  class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Cargar Imagen de la Falla</button>
+                </div>
+
+                <br> 
+
+                 <div *ngIf="progreso > 0" class="progress" style="height: 40px;">
+                <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{width:progreso+'%'}" attr.aria-valuenow="{{progreso}}" aria-valuemin="0" aria-valuemax="100">
+                  {{progreso}}%
+                </div>
+              </div>
+
+
+            </div>
+
+            
+         <br>  <!-- Aqui termina el primer modal body -->
+
+     
+      
+
+
+
+      
+          <br>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="cerrarModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+

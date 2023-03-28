@@ -1,0 +1,521 @@
+
+  
+<mat-toolbar>
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+
+  </button>
+
+ <a
+    [routerLink]="'/'"
+    mat-icon-button
+    class="example-icon"
+    arial-label="Example icon-button with menu icon"
+  >
+    <mat-icon>print</mat-icon>
+  </a>
+
+    <span>Sistema de Impresoras Grupo ESIT</span>
+  <span class="example-spacer"></span>
+
+  <a *ngIf="!autenticado"
+    [routerLink]="'/login'"  
+    mat-icon-button
+    class = "example-icon favorite-icon"
+    aria-label = "Example icon-button with heart icon"
+  >
+    Iniciar sesión
+  </a>
+
+   <button mat-raised-button
+        matTooltip="Cerrar Sesión"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+   mat-icon-button *ngIf="autenticado" (click)="logout()">
+   
+ <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+ 
+
+ 
+  
+  </mat-toolbar>
+
+
+<mat-sidenav-container>
+<mat-sidenav #sidenav="matSidenav">
+
+   <img src="../../../assets/img/banner/Grupo_ESIT2.png" width = "100" height = "70">
+  <mat-divider> </mat-divider>
+  <button mat-button class="menu-button" type="button" [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>  
+    <span>Inicio</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listCuen']">
+   <mat-icon>face</mat-icon> 
+    <span> Clientes</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <mat-divider> </mat-divider>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listInvent']">
+    <mat-icon>money</mat-icon>  
+    <span>Inventario</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+  <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+    <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/ticket2']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+
+
+
+  <mat-divider> </mat-divider>
+
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/catalogos']">
+   <mat-icon>settings</mat-icon> 
+    <span> Catálogos</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/signup']">
+   <mat-icon>how_to_reg</mat-icon> 
+    <span> Registro</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRol']">
+   <mat-icon>account_box</mat-icon> 
+    <span>Roles</span>
+  </button>
+
+</mat-sidenav>
+
+<mat-sidenav-content>
+
+
+<main class="col-md-9 col-lg-12 px-md-4">
+     <div class="col-xl-12 col-lg-8 item-wr">
+    <div class="card shadow mb-4">
+
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h3 class="m-0 font-weight-bold text-primary"><span><H3> Reporte detallado de equipos</H3> </span></h3>
+
+            </div>
+
+             <div class="card-body">
+             	
+
+			<div class="row row-cols-1 row-cols-md-3">
+				<div class="col mb-4">
+
+            
+		          <div class="form-group" >
+		                        
+		          <label>Número de serie:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="serie"
+		              [(ngModel)]="inventarios.serie"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>
+
+
+				</div>
+
+
+				<div class="col mb-4">
+
+
+			        <div class="form-group" >
+		                        
+		          <label>Equipo:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="equipo"
+		              [(ngModel)]="inventarios.equipos.tipo"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>  
+
+
+				</div>
+
+				<div class="col mb-3">
+
+					
+                 <div class="form-group" >
+		                        
+		          <label>Modelo:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="modelo"
+		              [(ngModel)]="inventarios.impresora.modelo"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>  
+
+
+
+				</div>
+
+			  
+			</div>  <!-- Termina el div de las primeras tres opciones -->
+
+			
+          	<div class="row row-cols-1 row-cols-md-3">
+				<div class="col mb-4">
+
+            
+		          <div class="form-group" >
+		                        
+		          <label>Destino:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="destino"
+		              [(ngModel)]="inventarios.destino"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>
+
+
+				</div>
+
+
+				<div *ngIf="bode" class="col mb-4">
+
+
+			        <div class="form-group" >
+		                        
+		          <label>Lugar en Bodega:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="lugarBodega"
+		              [(ngModel)]="inventarios.lugarBodega"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>  
+
+
+				</div>
+
+				<div *ngIf="area" class="col mb-3">
+
+					
+                 <div class="form-group" >
+		                        
+		          <label>Área:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="modelo"
+		              [(ngModel)]="inventarios.areas.area"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>  
+
+
+
+				</div>
+
+			  
+			</div>  <!-- Termina el div de la segunda fila de tres opciones -->
+
+
+			 	<div class="row row-cols-1 row-cols-md-3">
+				<div *ngIf="area" class="col mb-4">
+
+            
+		          <div  class="form-group" >
+		                        
+		          <label>Subarea:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="subarea"
+		              [(ngModel)]="inventarios.subarea.subarea"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>
+
+
+				</div>
+
+
+				<div class="col mb-4">
+
+
+			       
+
+				</div>
+
+				<div *ngIf="impre" class="col mb-3">
+
+					
+                 <div class="form-group" >
+		                        
+		          <label>Característica:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="modelo"
+		              [(ngModel)]="inventarios.caracteristica"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>  
+
+
+
+				</div>
+
+			  
+			</div>  <!-- Termina el div de la tercer fila de tres opciones -->
+
+
+
+	      <div *ngIf="impre" class="row row-cols-1 row-cols-md-3">
+				<div class="col mb-4">
+
+            
+		          <div  class="form-group" >
+		                        
+		          <label>Contador:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="subarea"
+		              [(ngModel)]="inventarios.contador"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>
+
+
+				</div>
+
+
+				<div  class="col mb-4">
+
+
+			        <div class="form-group" >
+		                        
+		          <label>% de Toner:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="toner"
+		              [(ngModel)]="inventarios.toner"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>  
+
+
+				</div>
+
+				<div class="col mb-3">
+
+					
+                 <div class="form-group" >
+		                        
+		          <label>% de Unidad de Imagen:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="consumible1"
+		              [(ngModel)]="inventarios.consumible1"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>  
+
+
+
+				</div>
+
+			  
+			</div>  <!-- Termina el div de la cuarta fila de tres opciones -->
+
+         <div  class="row row-cols-1 row-cols-md-3">
+				<div class="col mb-4">
+
+            
+
+
+				</div>
+
+
+				<div *ngIf="impre" class="col mb-4">
+
+
+			        <div class="form-group" >
+		                        
+		          <label>% de Fusor:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="consumible2"
+		              [(ngModel)]="inventarios.consumible2"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>  
+
+
+				</div>
+
+				<div class="col mb-3">
+
+					 <div class="form-group" >
+		                        
+		          <label>Refacción:<sup class="text-danger">*</sup></label>
+
+		          <div class="form-group__content">
+		              
+		              <input type="text"
+		              class="form-control"
+		              name="refaccion"
+		              [(ngModel)]="inventarios.refaccion"
+		              readonly
+		              required>
+
+		          </div>
+
+		          </div>  
+
+                
+
+
+
+				</div>
+
+			  
+			</div>  <!-- Termina el div de la quinta fila de tres opciones -->
+
+
+				 
+  	 
+			
+
+
+           	</div>
+             
+        </div>
+
+    </div>
+
+  </main>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

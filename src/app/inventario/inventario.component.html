@@ -1,0 +1,694 @@
+
+	
+<mat-toolbar>
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+
+  </button>
+
+ <a
+    [routerLink]="'/'"
+    mat-icon-button
+    class="example-icon"
+    arial-label="Example icon-button with menu icon"
+  >
+    <mat-icon>print</mat-icon>
+  </a>
+
+    <span>Sistema de Impresoras Grupo ESIT</span>
+  <span class="example-spacer"></span>
+
+  <a *ngIf="!autenticado"
+    [routerLink]="'/login'"  
+    mat-icon-button
+    class = "example-icon favorite-icon"
+    aria-label = "Example icon-button with heart icon"
+  >
+    Iniciar sesión
+  </a>
+
+   <button mat-raised-button
+        matTooltip="Cerrar Sesión"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+   mat-icon-button *ngIf="autenticado" (click)="logout()">
+   
+ <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+ 
+
+ 
+  
+  </mat-toolbar>
+
+
+<mat-sidenav-container>
+<mat-sidenav #sidenav="matSidenav">
+
+   <img src="../../../assets/img/banner/Grupo_ESIT2.png" width = "100" height = "70">
+  <mat-divider> </mat-divider>
+  <button mat-button class="menu-button" type="button" [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>  
+    <span>Inicio</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listCuen']">
+   <mat-icon>face</mat-icon> 
+    <span> Clientes</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <mat-divider> </mat-divider>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listInvent']">
+    <mat-icon>money</mat-icon>  
+    <span>Inventario</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+  <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+    <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/ticket2']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+
+
+
+  <mat-divider> </mat-divider>
+
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/catalogos']">
+   <mat-icon>settings</mat-icon> 
+    <span> Catálogos</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/signup']">
+   <mat-icon>how_to_reg</mat-icon> 
+    <span> Registro</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRol']">
+   <mat-icon>account_box</mat-icon> 
+    <span>Roles</span>
+  </button>
+
+</mat-sidenav>
+
+<mat-sidenav-content>
+
+
+<main class="col-md-9 col-lg-12 px-md-4">
+      <div class="col-xl-12 col-lg-8 item-wr">
+    <div class="col-xl-12 col-lg-8">
+      <form areaForm="ngForm">
+        <div class="card shadow mb-4">
+
+
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h3 class="m-0 font-weight-bold text-primary"><span><H3> Registro de equipos a Inventario</H3> </span></h3>
+
+            </div>
+
+            <div class="card-body">
+
+
+
+            	<div class="row row-cols-1 row-cols-md-2">
+          <div class="col mb-4">
+
+
+         <div 
+          class="form-group row">
+              
+       
+			<mat-form-field appearance="fill">
+				<mat-label>Seleccionar Equipo o Consumible</mat-label>
+				<mat-select [(ngModel)]="inventarios.equipos" name="equipos"
+				(ngModelChange)="onChangeObj($event)">
+				<mat-option *ngFor="let equi of equipos" [value]="equi">
+				{{equi.tipo}}
+				</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+          
+                
+              </div>
+        
+          </div>
+
+
+          <div class="col mb-4">
+
+              <div class="form-group">
+                  <input type="text" 
+                  class="form-control formStore"
+                  pattern="[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ ]{1,}" 
+                  (change)="validate(serie)"
+                  placeholder="Número de Serie del equipo" 
+                  [(ngModel)]="inventarios.serie" 
+                  name="serie" 
+                  #serie
+                  required>
+                  <div class="valid-feedback">Valido</div>
+                  <div class="invalid-feedback">Campo Invalido</div>
+                     
+                  </div>
+           
+
+          </div>
+
+          
+
+        
+      </div> <!-- Termina el div para la selección del equipo-->
+
+
+
+      <div  *ngIf="method"  class="row row-cols-1 row-cols-md-3">
+          <div class="col mb-4">
+
+          
+
+          </div>
+
+
+          <div class="col mb-4">
+
+             
+                <div class="form-group row">
+                
+                 
+
+             <mat-form-field appearance="fill">
+				<mat-label>Selecionar Modelo  del Equipo</mat-label>
+				<mat-select [(ngModel)]="inventarios.impresora" name="impresora">
+				<mat-option *ngFor="let impre of impresoras" [value]="impre">
+				{{impre.modelo}}
+				</mat-option>
+				</mat-select>
+			</mat-form-field>
+                
+              </div>
+                
+                         
+
+          </div>
+
+           <div class="col mb-4">
+
+          
+
+          </div>
+
+         
+
+        
+      </div> <!-- Termina el div para la seleccion del modelo y para escribir 
+                   el numero de serie delequipo-->
+
+      
+
+			  <div 
+			  *ngIf="consum"	
+			  class="row row-cols-1 row-cols-md-3">
+				<div class="col mb-4">
+				  
+				 <section class="example-section">
+				      <mat-checkbox
+				       
+                        id="toner"
+                        name="toner"
+				         [(ngModel)]="toner"
+              			 (change)="changeConsumible()"
+              			 [disabled]="imagen"
+              			 [disabled]="fusor">
+				        <span><H4>Toner</H4> </span>
+				      </mat-checkbox>
+				    </section>
+		 
+					  </div>
+
+
+					  <div class="col mb-4">
+					   
+					 <section class="example-section">
+				      <mat-checkbox
+						id="imagen"
+						name="imagen"
+						[(ngModel)]="imagen"
+						(change)="changeConsumible()"
+						[disabled]="toner"
+						[disabled]="fusor">
+				        <span><H4>Unidad de imagen</H4> </span>
+				      </mat-checkbox>
+				    </section>
+		
+				  </div>
+
+				    <div class="col mb-4">
+					   
+					 <section class="example-section">
+				      <mat-checkbox
+						id="fusor"
+						name="fusor"
+						[(ngModel)]="fusor"
+						(change)="changeConsumible()"
+						[disabled]="imagen"
+						[disabled]="toner">
+				        <span><H4>Fusor</H4> </span>
+				      </mat-checkbox>
+				    </section>
+		
+				  </div>
+
+						  
+			  </div>
+
+			  	
+
+			   <div class="row row-cols-1 row-cols-md-1">
+			  <div 
+              *ngIf="toner"
+			  class="col mb-6">
+			 
+			 
+
+             <mat-form-field appearance="fill">
+				<mat-label>Selecionar Toner</mat-label>
+				<mat-select [(ngModel)]="inventarios.impresora" name="impresora">
+				<mat-option *ngFor="let impre of impresoras" [value]="impre">
+				{{impre.modelo}}
+				</mat-option>
+				</mat-select>
+			</mat-form-field>
+			    
+			  </div>
+
+			
+			  </div>
+
+
+     		  <div class="row row-cols-1 row-cols-md-1">
+			<div 
+            *ngIf="imagen"
+			class="col mb-4">
+			   
+			 
+             <mat-form-field appearance="fill">
+				<mat-label>Unidad de Imagen</mat-label>
+				<mat-select [(ngModel)]="inventarios.impresora" name="impresora">
+				<mat-option *ngFor="let impre of impresoras" [value]="impre">
+				{{impre.modelo}}
+				</mat-option>
+				</mat-select>
+			</mat-form-field>
+			    
+			  </div>
+
+			
+			  </div>
+
+
+
+			  <div class="row row-cols-1 row-cols-md-1">
+			<div 
+            *ngIf="fusor"
+			class="col mb-4">
+			  
+            <mat-form-field appearance="fill">
+				<mat-label>Fusor</mat-label>
+				<mat-select [(ngModel)]="inventarios.impresora" name="impresora">
+				<mat-option *ngFor="let impre of impresoras" [value]="impre">
+				{{impre.modelo}}
+				</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			    
+			  </div>
+
+			
+			  </div>
+
+
+
+			<div *ngIf="impre" class="row row-cols-1 row-cols-md-2">
+			<div class="col mb-4">
+			   
+			    <div class="form-group">
+			    <input type="text" 
+			    class="form-control formStore"
+			    pattern="100$|^\d{0,2}(\.\d{1,2})? *%?" 
+                (change)="validate(toner)" 
+			    placeholder="% de Toner" 
+			    [(ngModel)]="inventarios.toner" 
+			    name="toner" 
+			    #toner
+			    required>
+                <div class="valid-feedback">Valido</div>
+                <div class="invalid-feedback">Campo Invalido</div>
+                </div>
+			    
+			  </div>
+
+
+			  <div  class="col mb-4">
+			   
+			    <div class="form-group">
+			    <input type="text" 
+			    class="form-control formStore"
+			    pattern="100$|^\d{0,2}(\.\d{1,2})? *%?" 
+                (change)="validate(consumible1)" 
+			    placeholder="% de Unidad de Imagen o Tambor" 
+			    [(ngModel)]="inventarios.consumible1" 
+			    name="consumible1" 
+			    #consumible1
+			    required>
+                <div class="valid-feedback">Valido</div>
+                <div class="invalid-feedback">Campo Invalido</div>
+                </div>
+			    
+			  </div>
+
+			
+			  </div>
+
+			  <div *ngIf="impre" class="row row-cols-1 row-cols-md-2">
+				<div class="col mb-4">
+				   
+				    
+				    <div class="form-group">
+				    <input type="text" 
+				     class="form-control formStore"
+			      pattern="100$|^\d{0,2}(\.\d{1,2})? *%?}" 
+                  (change)="validate(consumible2)"
+				    placeholder="% de Fusor" 
+				    [(ngModel)]="inventarios.consumible2" 
+				    name="consumible2" 
+				    #consumible2
+				    required>
+                    <div class="valid-feedback">Valido</div>
+                    <div class="invalid-feedback">Campo Invalido</div>
+                    </div>
+				    
+				  </div>
+
+
+				  <div class="col mb-4">
+				   
+				   <div class="form-group">
+				    <input type="text" 
+				    class="form-control formStore"
+			        pattern="[0-9]{1,7}" 
+                    (change)="validate(contador)" 
+				    placeholder="Contador de Impresora" 
+				    [(ngModel)]="inventarios.contador" 
+				    name="contador" 
+				    #contador
+				    required>
+                    <div class="valid-feedback">Valido</div>
+                    <div class="invalid-feedback">Campo Invalido</div>
+                    </div>
+				    
+				  </div>
+
+						  
+			  </div>
+
+			  <div class="row row-cols-1 row-cols-md-2">
+				<div 
+	            *ngIf="impre"
+				class="col mb-4">
+				  
+				
+			    <section class="example-section">
+				      <mat-checkbox
+				       
+                        id="mono"
+                        name="mono"
+				         [(ngModel)]="mono"
+              			 (change)="changeAccept()"
+              			 [disabled]="color">
+				        <span><H2>Monocromática</H2> </span>
+				      </mat-checkbox>
+				    </section>
+				    
+				  </div>
+
+
+				  <div 
+	              *ngIf="impre"
+				  class="col mb-4">
+				   
+				 <section class="example-section">
+				      <mat-checkbox
+				       
+                        id="color"
+                        name="color"
+				         [(ngModel)]="color"
+              			 (change)="changeAccept()"
+              			 [disabled]="mono">
+				        <span><H2>Color</H2> </span>
+				      </mat-checkbox>
+				    </section>
+		
+
+				    
+				  </div>
+
+						  
+			  </div>
+
+
+			  <div class="row row-cols-1 row-cols-md-3">
+				<div 
+	            class="col mb-4">
+
+	             <section class="example-section">
+				      <mat-checkbox
+				       
+                        id="refac"
+                        name="refac"
+				        [(ngModel)]="refac"
+              			
+              			 >
+				        <span><H2>¿ Requiere Refacción ?</H2> </span>
+				      </mat-checkbox>
+				    </section>	
+		
+				    
+				  </div>
+
+
+				  <div 
+	           	  class="col mb-4">
+			
+	           	  
+				  </div>
+
+				  <div 
+	           	  class="col mb-4">
+			
+	           	 
+				  </div>
+
+						  
+			  </div>
+
+
+			   <div class="row row-cols-1 row-cols-md-1">
+				<div 
+	            *ngIf="refac"
+				class="col mb-4">
+
+
+			 <input 
+			 type="text" 
+			 class="form-control formStore"
+			 pattern="[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ ]{1,}" 
+             (change)="validate(refaccion)" 
+			 placeholder="¿Cuál Refacción?" 
+			 [(ngModel)]="inventarios.refaccion" 
+			 name="refaccion" 
+			 #refaccion
+			 required>
+			 <div class="valid-feedback">Valido</div>
+             <div class="invalid-feedback">Campo Invalido</div>
+				    
+				  </div>
+	  
+			  </div>
+
+			    <div class="row row-cols-1 row-cols-md-2">
+				<div class="col mb-4">
+				  
+				 <section class="example-section">
+				      <mat-checkbox
+				       
+                        id="accept"
+                        name="accept"
+				         [(ngModel)]="asignada"
+              			 (change)="changeAccept()"
+              			 [disabled]="bodega">
+				        <span><H2>Asignada</H2> </span>
+				      </mat-checkbox>
+				    </section>
+		 
+					  </div>
+
+
+					  <div class="col mb-4">
+					   
+					 <section class="example-section">
+				      <mat-checkbox
+						id="bodega"
+						name="bodega"
+						[(ngModel)]="bodega"
+						(change)="changeAccept()"
+						[disabled]="asignada">
+				        <span><H2>En Bodega</H2> </span>
+				      </mat-checkbox>
+				    </section>
+		
+				  </div>
+
+						  
+			  </div>
+
+
+		   <div class="row row-cols-1 row-cols-md-2">
+			
+
+				  	<div 
+	            *ngIf="asignada"
+				class="col mb-4">
+
+				<mat-form-field appearance="fill">
+					<mat-label>Seleccionar Área</mat-label>
+					<mat-select [(ngModel)]="inventarios.areas" name="areas"
+					(ngModelChange)="onChangeObj1($event)">
+					<mat-option *ngFor="let are of areas" [value]="are">
+					{{are.area}}
+					</mat-option>
+					</mat-select>
+				</mat-form-field>
+				
+				    
+				  </div>
+
+
+
+				  <div 
+	              *ngIf="asignada"
+				  class="col mb-4">
+				
+
+	       
+                 <mat-form-field appearance="fill">
+					<mat-label>Seleccionar Subarea</mat-label>
+					<mat-select [(ngModel)]="inventarios.subarea" name="subarea">
+					<mat-option *ngFor="let subar of subareas" [value]="subar">
+					{{subar.subarea}}
+					</mat-option>
+					</mat-select>
+				</mat-form-field>
+
+				    
+				  </div>
+
+						  
+			  </div>
+
+			     <div class="row row-cols-1 row-cols-md-1">
+				
+
+				  <div 
+	              *ngIf="bodega"
+				  class="col mb-4">
+				   
+				 <input type="text" 
+				  class="form-control formStore"
+			      pattern="[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ ]{1,}" 
+                  (change)="validate(lugarBodega)" 
+				 placeholder="Ubicación en bodega" 
+				 [(ngModel)]="inventarios.lugarBodega" 
+				 name="lugarBodega" 
+				 #lugarBodega
+				 required>
+			    <div class="valid-feedback">Valido</div>
+                <div class="invalid-feedback">Campo Invalido</div>
+
+
+				    
+				  </div>
+
+						  
+			  </div>
+			
+			 
+
+               <button type="submit"  (click)='createInventario()' class="btn btn-info btn-fill pull-right btn-space" *ngIf="!inventarios.id else elseBlock">Registrar</button>
+
+			  <ng-template #elseBlock>
+	            <button class="btn btn-primary" role="button" (click)='updateInventario()' >Editar</button>
+	          </ng-template>
+
+
+            </div>
+        </div>
+        </form>
+    </div>
+
+    </div>
+
+  </main>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,177 @@
+<div class="abrir-modal animacion fadeIn" *ngIf="modalService.modal">
+<div class="modal" tabindex="-1" role="dialog" style="display:block;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ titulo }}</h5>
+        <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-sm">
+           
+
+               <div class="form-group">
+               <input type="file" 
+                class="form-control formStore"
+                (change)="seleccionarFoto($event)"
+                id="inputGroupFile04"
+                placeholder="Seleccionar instructivo" 
+          
+                name="toner" 
+                #toner
+                required>
+                <div class="valid-feedback">Valido</div>
+                <div class="invalid-feedback">Campo Invalido</div>
+                </div>
+
+                
+                 <div class="form-groupd">
+                  <button (click)="subirFoto()"  class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Cargar Instructivo</button>
+                </div>
+
+                <br> 
+
+                 <div *ngIf="progreso > 0" class="progress" style="height: 40px;">
+                <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{width:progreso+'%'}" attr.aria-valuenow="{{progreso}}" aria-valuemin="0" aria-valuemax="100">
+                  {{progreso}}%
+                </div>
+              </div>
+
+
+            </div>
+
+            
+         <br>  <!-- Aqui termina el primer modal body -->
+
+     
+        <div class="container">
+          <div class="row">
+
+            <div class="col-sm">
+           
+
+               <div class="form-group">
+               <input type="file" 
+                class="form-control formStore"
+                (change)="seleccionarFiscal($event)"
+                id="inputGroupFile01"
+                placeholder="Constancia Fiscal" 
+          
+                name="fiscal" 
+                #fiscal
+                required>
+                <div class="valid-feedback">Valido</div>
+                <div class="invalid-feedback">Campo Invalido</div>
+                </div>
+
+                
+                 <div class="form-groupd">
+                  <button (click)="subirFiscal()"  class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon01">Cargar Constancia de situación fiscal</button>
+                </div>
+                <br> 
+
+                 <div *ngIf="progresoF > 0" class="progress" style="height: 40px;">
+                <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{width:progresoF+'%'}" attr.aria-valuenow="{{progresoF}}" aria-valuemin="0" aria-valuemax="100">
+                  {{progresoF}}%
+                </div>
+              </div>
+
+
+            </div>
+
+            
+       <br>   <!-- Aqui termina el segundo modal body -->
+
+
+
+      
+        <div class="container">
+          <div class="row">
+
+            <div class="col-sm">
+           
+
+               <div class="form-group">
+               <input type="file" 
+                class="form-control formStore"
+                (change)="SelIdentificacion($event)"
+                id="inputGroupFile02"
+                placeholder="% de Toner" 
+          
+                name="identificacion" 
+                #identificacion
+                required>
+                <div class="valid-feedback">Valido</div>
+                <div class="invalid-feedback">Campo Invalido</div>
+                </div>
+
+                
+                 <div class="form-groupd">
+                  <button (click)="subirIdentific()"  class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon02">Cargar Identificación</button>
+                </div>
+                <br> 
+
+                 <div *ngIf="progresoI > 0" class="progress" style="height: 40px;">
+                <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{width:progresoI+'%'}" attr.aria-valuenow="{{progresoI}}" aria-valuemin="0" aria-valuemax="100">
+                  {{progresoI}}%
+                </div>
+              </div>
+
+
+            </div>
+
+
+            <div class="container">
+          <div class="row">
+
+            <div class="col-sm">
+           
+
+               <div class="form-group">
+               <input type="file" 
+                class="form-control formStore"
+                (change)="seleccionarDom($event)"
+                id="inputGroupFile03"
+                placeholder="Comprobante de Domicilio" 
+          
+                name="domicilio" 
+                #domicilio
+                required>
+                <div class="valid-feedback">Valido</div>
+                <div class="invalid-feedback">Campo Invalido</div>
+                </div>
+
+                
+                 <div class="form-groupd">
+                  <button (click)="subirDom()"  class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Cargar Comprobante de domicilio</button>
+                </div>
+                <br> 
+
+                 <div *ngIf="progresoD > 0" class="progress" style="height: 40px;">
+                <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{width:progresoD+'%'}" attr.aria-valuenow="{{progresoD}}" aria-valuemin="0" aria-valuemax="100">
+                  {{progresoD}}%
+                </div>
+              </div>
+
+
+            </div>
+
+            
+          </div><!-- Aqui termina el tercer modal body -->
+          <br>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="cerrarModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

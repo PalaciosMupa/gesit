@@ -1,0 +1,120 @@
+mat-toolbar{
+  background: #004a9f;
+  color: white;
+}
+
+
+mat-sidenav{
+  margin: 16px;
+  width: 200px;
+  color: white;
+  text-align: center;
+  border-right: none;
+  background: #002b5c;
+  border-radius: 10px;
+  padding: 16px;
+  text-decoration: center;
+}
+
+.content{
+  height: calc(100vh - 98px);
+  margin: 16px;
+  margin-left: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: ligthgray;
+  border-radius: 10px;
+}
+
+mat-sidenav-container{
+  height: calc(100vh - 65px);
+}
+
+.menu-button{
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: flex-start;
+font-size: 1rem;
+
+}
+
+ mat-icon{
+  margin-right: 8 px;
+ }
+
+
+
+mat-divider{
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.item-wr {
+    margin: 15px;
+}
+
+.btn-space {
+    margin-right: 8px;
+}
+
+.button-wrapper .btn {
+    margin-bottom:5px;
+}
+
+.marginTop15px{margin-top: 17px;}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+h2{
+  color: #0833a2;
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 1px;
+}
+
+h3{
+  color: #3388CC;
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 1px;
+}
+
+h4{
+  color: #4422ee;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 1px;
+}
+
+.example-h2 {
+  margin: 10px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}
+
+.full-width{
+  width: 100%;
+}
+
+.example-spacer{
+  flex: 1 1 auto;
+}
+
+/deep/ .mat-tooltip {
+  font-size: 14px;
+}

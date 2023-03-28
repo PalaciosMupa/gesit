@@ -1,0 +1,346 @@
+<app-contrato *ngIf="clienteSeleccionado" [cliente] ="clienteSeleccionado"></app-contrato>
+
+<app-pdfcontrato *ngIf="clienteSeleccionad" 
+[cliente] ="clienteSeleccionad"
+[sat] ="sat"
+[dom] ="dom"
+[iden] ="iden"
+[contr] ="contr"
+
+></app-pdfcontrato>	
+<mat-toolbar>
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+
+  </button>
+
+ <a
+    [routerLink]="'/'"
+    mat-icon-button
+    class="example-icon"
+    arial-label="Example icon-button with menu icon"
+  >
+    <mat-icon>print</mat-icon>
+  </a>
+
+    <span>Sistema de Impresoras Grupo ESIT</span>
+  <span class="example-spacer"></span>
+
+  <a *ngIf="!autenticado"
+    [routerLink]="'/login'"  
+    mat-icon-button
+    class = "example-icon favorite-icon"
+    aria-label = "Example icon-button with heart icon"
+  >
+    Iniciar sesión
+  </a>
+
+   <button mat-raised-button
+        matTooltip="Cerrar Sesión"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+   mat-icon-button *ngIf="autenticado" (click)="logout()">
+   
+ <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+ 
+
+ 
+  
+  </mat-toolbar>
+
+
+<mat-sidenav-container>
+<mat-sidenav #sidenav="matSidenav">
+
+  <img src="../../../assets/img/banner/Grupo_ESIT2.png" width = "100" height = "70">
+  <mat-divider> </mat-divider>
+  <button mat-button class="menu-button" type="button" [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>  
+    <span>Inicio</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listCuen']">
+   <mat-icon>face</mat-icon> 
+    <span> Clientes</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/formato']">
+    <mat-icon>folder_open</mat-icon> 
+    <span> Formatos</span>
+  </button>
+
+  <mat-divider> </mat-divider>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listInvent']">
+    <mat-icon>money</mat-icon>  
+    <span>Inventario</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRepuesto']">
+      <mat-icon>autorenew</mat-icon>
+      <span>Repuestos</span>
+    </button>
+
+  <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button" type="button" [routerLink]="['/instructivo']">
+    <mat-icon>school</mat-icon> 
+    <span> Instructivo</span>
+  </button>
+
+
+
+  <button *ngIf="authService.hasRole('ROLE_USER')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listticket']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+    <button *ngIf="authService.hasRole('ROLE_TECNICO')" mat-button class="menu-button"type="button" [routerLink]="['/ticket2']">
+   <mat-icon>how_to_vote</mat-icon> 
+    <span> Tickets</span>
+  </button>
+
+
+
+
+  <mat-divider> </mat-divider>
+
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/catalogos']">
+   <mat-icon>settings</mat-icon> 
+    <span> Catálogos</span>
+  </button>
+
+   <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/signup']">
+   <mat-icon>how_to_reg</mat-icon> 
+    <span> Registro</span>
+  </button>
+
+  <button *ngIf="authService.hasRole('ROLE_ADMIN')" mat-button class="menu-button"type="button" [routerLink]="['/listRol']">
+   <mat-icon>account_box</mat-icon> 
+    <span>Roles</span>
+  </button>
+
+</mat-sidenav>
+
+<mat-sidenav-content>
+
+
+<main class="col-md-9 col-lg-12 px-md-4">
+
+
+  <div *ngIf="ClieMes" class="col-xl-12 col-lg-8 item-wr">
+
+  <div class="card border-primary mb-3">
+    <div class="card-header" style="color:red">Contratos con un Mes para su VENCIMIENTO</div>
+    <div class="card-body text-primary">
+     
+
+       <table 
+          class="table table-bordered table-striped table-sm table-responsive">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Cuenta</th>
+            <th>Fecha de Vencimiento</th>
+            
+
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let client of Clien">
+
+          <td>{{ client.nombre }}</td>
+            <td>{{ client.numero_cliente }}</td>
+            <td>{{ client.fechaFContrato }}</td>
+            
+         
+          </tr>
+        </tbody>
+      </table>
+  
+
+  </div>
+  </div>
+  </div>
+
+  <div *ngIf="ClieMedio" class="col-xl-12 col-lg-8 item-wr">
+
+  <div class="card border-primary mb-3">
+    <div class="card-header" style="color:red">Contratos con Quince días para su VENCIMIENTO!!!</div>
+    <div class="card-body text-primary">
+     
+
+       <table 
+          class="table table-bordered table-striped table-sm table-responsive">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Cuenta</th>
+            <th>Fecha de Vencimiento</th>
+            
+
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let client of Clien15">
+
+          <td>{{ client.nombre }}</td>
+            <td>{{ client.numero_cliente }}</td>
+            <td>{{ client.fechaFContrato }}</td>
+            
+         
+          </tr>
+        </tbody>
+      </table>
+  
+
+  </div>
+  </div>
+  </div>
+
+  <div *ngIf="Cliequince" class="col-xl-12 col-lg-8 item-wr">
+
+  <div class="card border-primary mb-3">
+    <div class="card-header" style="color:red">Contratos con 7 días o Menos para su VENCIMIENTO!!!</div>
+    <div class="card-body text-primary">
+     
+
+       <table 
+          class="table table-bordered table-striped table-sm table-responsive">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Cuenta</th>
+            <th>Fecha de Vencimiento</th>
+            
+
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let client of Clien7">
+
+          <td>{{ client.nombre }}</td>
+            <td>{{ client.numero_cliente }}</td>
+            <td>{{ client.fechaFContrato }}</td>
+            
+         
+          </tr>
+        </tbody>
+      </table>
+  
+
+  </div>
+  </div>
+  </div>
+
+
+
+  <div class="col-xl-12 col-lg-8 item-wr">
+
+  <div class="card border-primary mb-3">
+    <div class="card-header">Registro de Clientes</div>
+    <div class="card-body text-primary">
+      <h3 class="card-title">Clientes</h3>
+      <div class="my-2 text-left button-wrapper">
+        <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-primary btn-space" type="button" [routerLink]="['/formclie']">
+          Agregar Clientes
+        </button>
+
+      </div>
+
+      <table class="table table-bordered table-striped table-sm table-responsive">
+        <thead>
+          <tr>
+            <th>Estatus</th>
+            <th>Contrato</th>
+            <th>Nombre del Cliente</th>
+            <th>Usuario</th>
+            <th>Dirección</th>
+            <th>Periodo</th>
+            <th>Inicio Contrato</th>
+            <th>Fin Contrato</th>
+            <th>Número de cuenta</th>
+            <th>Contrato</th>
+            <th>SAT</th>
+            <th>INE</th>
+            <th>Domic</th>
+            <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
+            <th  *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th> 
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientes">
+            <td *ngIf="cliente.fechaFContrato <= fechaTomorro && cliente.fechaFContrato >= fechaHoy"> <button 
+              type="button"    class="btn btn-warning btn-sm"><mat-icon>check</mat-icon></button></td>
+              <td *ngIf="cliente.fechaFContrato > fechaTomorro"> <button 
+              type="button"    class="btn btn-success btn-sm"><mat-icon>check</mat-icon></button></td>
+              <td *ngIf="cliente.fechaFContrato < fechaHoy"> <button 
+              type="button"    class="btn btn-danger btn-sm"><mat-icon>cancel</mat-icon></button></td>
+            <td matTooltip="Subir Contrato"><mat-icon (click)="abrirModal(cliente)" style="cursor: pointer;">cloud_upload</mat-icon> </td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.usuario.username }}</td>
+            <td>{{ cliente.direccion }}</td>
+            <td>{{ cliente.periodoCont }}</td>
+            <td>{{ cliente.fechaIContrato | date:'mediumDate'}}</td>
+            <td>{{ cliente.fechaFContrato | date:'mediumDate' }}</td>
+            <td>{{ cliente.numero_cliente }}</td>
+            <td 
+            matTooltip="Ver Contrato"><mat-icon (click)="abrirPdf(cliente, contr)" style="cursor: pointer;">cloud_download</mat-icon></td>
+             <td 
+            matTooltip="Constancia Situación Fiscal"><mat-icon (click)="abrirSAT(cliente, sat)" style="cursor: pointer;">attach_money</mat-icon></td>
+             <td 
+            matTooltip="Identificación"><mat-icon (click)="abrirIden(cliente, iden)" style="cursor: pointer;">account_box</mat-icon></td>
+             <td 
+            matTooltip="Comprobante de domicilio"><mat-icon (click)="abrirDom(cliente, dom)" style="cursor: pointer;">room</mat-icon></td>
+
+            <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+              <button type="button" name="editar" [routerLink]="['/formclie', cliente.id]" class="btn btn-primary btn-sm">Editar</button>
+            </td>
+           <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+              <button type="button" name="eliminar"  (click)='delete(cliente)' class="btn btn-danger btn-sm">Eliminar</button>
+            </td>  
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+  </div>
+
+
+
+
+</main>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+ 

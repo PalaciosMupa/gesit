@@ -1,0 +1,35 @@
+<div class = "bootstrap-wrapper">
+  <div class = "container">
+    <div class = "row mt20">
+      <div class = "col-md-6 offset-md-3">
+        <mat-card>
+          <div class = "container text-center">
+            <img src="../../../assets/img/banner/Grupo_ESIT.jpeg" width = "250" height = "150">
+          </div>
+
+        
+          <form method="post">
+            <mat-form-field class = "full-width"  appearance = "outline">
+              <mat-label>Nombre de usuario</mat-label>
+              <input [(ngModel)] = "usuario.username" name = "username" required  matInput placeholder="Digite su nombre de usuario">
+              
+            </mat-form-field>
+            <mat-form-field class="full-width"  appearance = "outline">
+              <mat-label>Contraseña</mat-label>
+              <input [(ngModel)] = "usuario.password" name = "password" required  type="password" matInput placeholder="Digite su contraseña">
+              
+            </mat-form-field>
+
+            <br><br>
+
+            <div class = "container text-center">
+              <button type = "submit" (click)='login()' mat-raised-button color="primary">Iniciar sesión</button>
+              <button type="reset" style = "margin-left: 20px;" mat-raised-button color="accent">Limpiar</button>
+            </div>
+          </form>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
