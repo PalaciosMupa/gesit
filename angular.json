@@ -25,7 +25,13 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "allowedCommonJsDependencies": ["ng2-pdf-viewer","ng2-search-filter"],
+            "allowedCommonJsDependencies": [
+              "moment-business",
+              "ng2-pdf-viewer",
+              "pdfjs-dist/build/pdf",
+              "pdfjs-dist/web/pdf_viewer"
+              
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
