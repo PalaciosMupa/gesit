@@ -26,8 +26,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "allowedCommonJsDependencies": [
-            "ng2-pdf-viewer",
-            "pdfjs-dist"
+             "lodash"
+           
 
             ],
             "assets": [
