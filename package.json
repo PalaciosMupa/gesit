@@ -25,10 +25,10 @@
     "file-saver": "^2.0.5",
     "http-client": "^4.3.1",
     "jquery": "^3.6.0",
-    "ng2-pdf-viewer": "^9.1.2",
+    "ng2-pdf-viewer": "^9.1.4",
     "ng2-search-filter": "^0.5.1",
-    "pdfjs-dist": "^2.5.207",
     "path": "^0.12.7",
+    "pdfjs-dist": "^2.5.207",
     "pdfmake": "^0.2.6",
     "rxjs": "~6.6.0",
     "sweetalert2": "^11.4.8",
@@ -57,5 +57,4 @@
   "optionalDependencies": {
     "fsevents": "^2.1.2"
   }
-
 }
