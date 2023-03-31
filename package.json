@@ -52,5 +52,9 @@
   "engines": {
     "node": "12.22.8",
     "npm": "6.14.15"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.1.2"
   }
+
 }
