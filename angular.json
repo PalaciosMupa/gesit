@@ -26,11 +26,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "allowedCommonJsDependencies": [
-              "moment-business",
-              "ng2-pdf-viewer",
-              "pdfjs-dist/build/pdf",
-              "pdfjs-dist/web/pdf_viewer"
-              
+            "ng2-pdf-viewer",
+            "pdfjs-dist"
+
             ],
             "assets": [
               "src/favicon.ico",
